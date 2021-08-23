@@ -1,22 +1,22 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Item, { Checkbox, AlertCompleted } from './styles';
 
 const TodoItem = (props) => {
   const {
     title, completed, handleChangeProps, id, deleteTodoProps,
   } = props;
   return (
-    <li>
-      <input
+    <Item>
+      <Checkbox
         checked={completed}
         type="checkbox"
         onChange={() => handleChangeProps(id)}
       />
-      {' '}
-      { title}
       <button type="button" onClick={() => deleteTodoProps(id)}>Delete</button>
-    </li>
+      <AlertCompleted completed={completed}>{title}</AlertCompleted>
+    </Item>
   );
 };
 
