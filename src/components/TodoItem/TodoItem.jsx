@@ -1,21 +1,45 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Item, { Checkbox, AlertCompleted } from './styles';
+import Item, {
+  Checkbox, Task, TaskContainer, Input,
+} from './styles';
 
 const TodoItem = (props) => {
   const {
     title, completed, handleChangeProps, id, deleteTodoProps,
   } = props;
+  const [editing, setEditing] = useState(false);
+  const handleEditing = () => {
+    setEditing(!editing);
+  };
+  const handleChange = (e) => {
+    e.preventDefault();
+    handleChangeProps(id, e.target.value);
+  };
+  const handleChangeEnter = (e) => {
+    if (e.key === 'Enter') {
+      setEditing(false);
+    }
+  };
   return (
     <Item>
-      <Checkbox
-        checked={completed}
-        type="checkbox"
-        onChange={() => handleChangeProps(id)}
+      <TaskContainer onDoubleClick={handleEditing}>
+        <Checkbox
+          checked={completed}
+          type="checkbox"
+          onChange={() => handleChangeProps(id)}
+        />
+        <Task completed={completed}>{title}</Task>
+        <button type="button" onClick={() => deleteTodoProps(id)}>Delete</button>
+      </TaskContainer>
+      <Input
+        type="text"
+        editing={editing}
+        value={title}
+        onChange={handleChange}
+        onKeyDown={handleChangeEnter}
       />
-      <button type="button" onClick={() => deleteTodoProps(id)}>Delete</button>
-      <AlertCompleted completed={completed}>{title}</AlertCompleted>
     </Item>
   );
 };

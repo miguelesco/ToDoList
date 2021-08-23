@@ -24,11 +24,22 @@ export const Checkbox = styled.input`
   margin-right: 15px;
 `;
 
-export const AlertCompleted = styled.span`
+export const Task = styled.span`
   font-style: ${(props) => (props.completed ? 'italic' : 'normal')}; 
   color: ${(props) => (props.completed ? '#595959' : '')}; 
   opacity: ${(props) => (props.completed ? 0.4 : 1)};
   text-decoration:  ${(props) => (props.completed ? 'line-through' : '')};;
+`;
+
+export const TaskContainer = styled.div`
+  display: flex;
+`;
+
+export const Input = styled.input`
+  ${(props) => (!props.editing ? 'display: none;' : '')}
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dfdfdf;
 `;
 
 export default Item;

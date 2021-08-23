@@ -24,13 +24,14 @@ const TodoContainer = () => {
       completed: false,
     },
   ]);
-  const handdleChange = (id) => {
+  const handdleChange = (id, newText = '') => {
     setTodos((todos) => {
       const newTodos = [...todos];
       const index = newTodos.findIndex((todo) => todo.id === id);
       newTodos[index] = {
         ...newTodos[index],
-        completed: !newTodos[index].completed,
+        completed: newText === '' ? !newTodos[index].completed : newTodos[index].completed,
+        title: newText || newTodos[index].title,
       };
 
       return newTodos;
